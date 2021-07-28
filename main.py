@@ -1,14 +1,10 @@
 from tkinter import*
 from tkinter.ttk import Spinbox,Label,Button
-import datetime
 from tkinter import messagebox
 from ttkthemes import ThemedTk
 root=ThemedTk(themebg=True)
 root.set_theme('arc')
 root.geometry("400x250")
-now_time_sec=datetime.datetime.now().strftime('%S')
-now_time_min=datetime.datetime.now().strftime('%M')
-now_time_hr=datetime.datetime.now().strftime("%H")
 sec_data=IntVar()
 min_data=IntVar()
 hr_data=IntVar()
@@ -28,42 +24,57 @@ def minus():
 		minus_this2-=1
 		minus_this1+=60
 	if minus_this==0 and minus_this1==0 and minus_this2==0:
+		root.deiconify()
 		root.after_cancel(id)
-		countdown_data.set('0')
+		countdown_data.set('00')
 		minus_this-=minus_this
-		messagebox.showinfo('Alert!!','Time Up!')#add maiming option.
-	countdown_data.set(minus_this)
-	countdown_data_1.set(minus_this1)
-	countdown_data_2.set(minus_this2)
+		messagebox.showinfo('Alert!!','Time Up!')
+		head.place(x=125)
+		sec_label_indict.place(x=1,y=55)
+		sec_spinbox.place(x=1,y=95)
+		min_label_indict.place(x=135,y=55)
+		min_spinbox.place(x=135,y=95)
+		hr_label_indict.place(x=135+135,y=55)
+		hr_spinbox.place(x=135+135,y=95)
+		set_timer.place(x=145,y=135)
+		a.place(x=5454)
+		b.place(x=3454)
+		sec_label.place(y=6444)
+		min_label.place(x=4544)
+		hr_label.place(x=4589)
+		root.geometry("400x250")		
+	if minus_this<=9:
+		countdown_data.set(f"0{minus_this}")
+	else:
+		countdown_data.set(f"{minus_this}")
+	if minus_this1<=9:
+		countdown_data_1.set(f"0{minus_this1}")
+	else:
+		countdown_data_1.set(f"{minus_this1}")
+	if minus_this2<=9:
+		countdown_data_2.set(f"0{minus_this2}")
+	else:
+		countdown_data_2.set(f"{minus_this2}")
 	minus_this-=1
-	
-
 def start_countdown(sec,min,hr):
 	global minus_this
 	global minus_this1
-	global minus_this2
-	sec_spinbox.deiconify()
-	min_spinbox.deiconify()
-	hr_spinbox.deiconify()
-	sec_label_indict.deiconify()
-	min_label_indict.deiconify()
-	hr_label_indict.deiconify()
-	set_timer.deiconify()
-	head.deiconify()
-
-	a=Label(root,text=':',font=('Courier New',50))
-	b=Label(root,text=':',font=('Courier New',50))
-	sec_lab=Label(root,textvariable=countdown_data,text=sec,font=('Courier',25))
-	sec_lab.place(x=230)
+	global minus_this2,a,b,sec_label,min_label,hr_label
+	root.geometry('350x200')
+	sec_spinbox.place(x=45444);min_spinbox.place(x=45444);hr_spinbox.place(x=45444);sec_label_indict.place(x=45444);min_label_indict.place(x=45444);hr_label_indict.place(x=45444);set_timer.place(x=45444);head.place(x=110)
+	a=Label(root,text=':',font=('Courier New',40))
+	b=Label(root,text=':',font=('Courier New',40))
+	sec_label=Label(root,textvariable=countdown_data,text=sec,font=('Courier',50))
+	sec_label.place(x=230,y=50)
 	countdown_data.set(sec)
-	min_label=Label(root,textvariable=countdown_data_1,text=min,font=('Courier',25))
-	min_label.place(x=125)
+	min_label=Label(root,textvariable=countdown_data_1,text=min,font=('Courier',25+25))
+	min_label.place(x=125,y=50)
 	countdown_data_1.set(min)
-	hr_label=Label(root,textvariable=countdown_data_2,text=hr,font=('Courier',25))
-	hr_label.place(x=15)
+	hr_label=Label(root,textvariable=countdown_data_2,text=hr,font=('Courier',25+25))
+	hr_label.place(x=15,y=50)
 	countdown_data_2.set(hr)
-	a.place(x=200,y=30)
-	b.place(x=90,y=30)
+	a.place(x=200,y=50)
+	b.place(x=90,y=50)
 	minus_this=sec
 	minus_this1=min
 	minus_this2=hr
